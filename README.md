@@ -5,3 +5,5 @@ We live in an era where the scope of all human knowledge is at our fingertips. E
 ### A new era has begun...
 
 and it is time our education system matches our reality. With the advent of AI and the internet, it is possible to provide a learning experience in harmony with our lives. This is the mission of edAstra.
+
+![edAstra_banner](https://user-images.githubusercontent.com/75050925/157982752-8aa8ad2e-16b6-4fde-b992-e41d1b4c7ae2.png)
