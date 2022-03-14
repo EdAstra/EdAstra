@@ -1,0 +1,221 @@
+{
+  "build": "pyhd8ed1ab_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "python >=3.7"
+  ],
+  "extracted_package_dir": "/Users/kevinme/opt/anaconda3/pkgs/filelock-3.6.0-pyhd8ed1ab_0",
+  "features": "",
+  "files": [
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/INSTALLER",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/LICENSE",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/METADATA",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/RECORD",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/REQUESTED",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/WHEEL",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/direct_url.json",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/top_level.txt",
+    "lib/python3.10/site-packages/filelock-3.6.0.dist-info/zip-safe",
+    "lib/python3.10/site-packages/filelock/__init__.py",
+    "lib/python3.10/site-packages/filelock/_api.py",
+    "lib/python3.10/site-packages/filelock/_error.py",
+    "lib/python3.10/site-packages/filelock/_soft.py",
+    "lib/python3.10/site-packages/filelock/_unix.py",
+    "lib/python3.10/site-packages/filelock/_util.py",
+    "lib/python3.10/site-packages/filelock/_windows.py",
+    "lib/python3.10/site-packages/filelock/py.typed",
+    "lib/python3.10/site-packages/filelock/version.py",
+    "lib/python3.10/site-packages/filelock/__pycache__/__init__.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/_api.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/_error.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/_soft.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/_unix.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/_util.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/_windows.cpython-310.pyc",
+    "lib/python3.10/site-packages/filelock/__pycache__/version.cpython-310.pyc"
+  ],
+  "fn": "filelock-3.6.0-pyhd8ed1ab_0.tar.bz2",
+  "license": "Unlicense",
+  "link": {
+    "source": "/Users/kevinme/opt/anaconda3/pkgs/filelock-3.6.0-pyhd8ed1ab_0",
+    "type": 1
+  },
+  "md5": "6e03ca6c7b47a4152a2b12c6eee3bd32",
+  "name": "filelock",
+  "noarch": "python",
+  "package_tarball_full_path": "/Users/kevinme/opt/anaconda3/pkgs/filelock-3.6.0-pyhd8ed1ab_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+        "sha256_in_prefix": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+        "size_in_bytes": 1210
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "2eb0c2f28580b49356154428e85271f47e98dca81067c063c3aa2781b47ed078",
+        "sha256_in_prefix": "2eb0c2f28580b49356154428e85271f47e98dca81067c063c3aa2781b47ed078",
+        "size_in_bytes": 2555
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "91525fedf83f3a52b920c093b89505461229cc6023866fa3b77666b6fb0b4816",
+        "sha256_in_prefix": "91525fedf83f3a52b920c093b89505461229cc6023866fa3b77666b6fb0b4816",
+        "size_in_bytes": 1811
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/REQUESTED",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "1b5e87e00dc87a84269cead8578b9e6462928e18a95f1f3373c9eef451a5bcc0",
+        "sha256_in_prefix": "1b5e87e00dc87a84269cead8578b9e6462928e18a95f1f3373c9eef451a5bcc0",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "c1cf5f3837569309167e3ff4c59af0a186abdbb4d84b554018edec9276d4b55e",
+        "sha256_in_prefix": "c1cf5f3837569309167e3ff4c59af0a186abdbb4d84b554018edec9276d4b55e",
+        "size_in_bytes": 104
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "343adff62e41368833e2111db2be878bb5acdd395248a63843663dffe8b61b05",
+        "sha256_in_prefix": "343adff62e41368833e2111db2be878bb5acdd395248a63843663dffe8b61b05",
+        "size_in_bytes": 9
+      },
+      {
+        "_path": "site-packages/filelock-3.6.0.dist-info/zip-safe",
+        "path_type": "hardlink",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "sha256_in_prefix": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "size_in_bytes": 1
+      },
+      {
+        "_path": "site-packages/filelock/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "5c4f916a73aa4db2641422896dedcfab334291580b417aacfd8a75aeb50f179f",
+        "sha256_in_prefix": "5c4f916a73aa4db2641422896dedcfab334291580b417aacfd8a75aeb50f179f",
+        "size_in_bytes": 1246
+      },
+      {
+        "_path": "site-packages/filelock/_api.py",
+        "path_type": "hardlink",
+        "sha256": "5688ea93758a89a0b8c6a79e53b253822f8720bfc5b406ddb2c4940603c1d6bd",
+        "sha256_in_prefix": "5688ea93758a89a0b8c6a79e53b253822f8720bfc5b406ddb2c4940603c1d6bd",
+        "size_in_bytes": 8405
+      },
+      {
+        "_path": "site-packages/filelock/_error.py",
+        "path_type": "hardlink",
+        "sha256": "19ac69d937dd9a076f605925946081384dfbbd82179c728a5b74587ca1fb0d83",
+        "sha256_in_prefix": "19ac69d937dd9a076f605925946081384dfbbd82179c728a5b74587ca1fb0d83",
+        "size_in_bytes": 399
+      },
+      {
+        "_path": "site-packages/filelock/_soft.py",
+        "path_type": "hardlink",
+        "sha256": "ad2a66b783a2d046f825e2b3c962267aa7f93180894740f273f9143779078fb6",
+        "sha256_in_prefix": "ad2a66b783a2d046f825e2b3c962267aa7f93180894740f273f9143779078fb6",
+        "size_in_bytes": 1650
+      },
+      {
+        "_path": "site-packages/filelock/_unix.py",
+        "path_type": "hardlink",
+        "sha256": "80ce3ee66a83b5a986a79ab05a46993524eebfda7bbf005ae1d895988d590704",
+        "sha256_in_prefix": "80ce3ee66a83b5a986a79ab05a46993524eebfda7bbf005ae1d895988d590704",
+        "size_in_bytes": 1578
+      },
+      {
+        "_path": "site-packages/filelock/_util.py",
+        "path_type": "hardlink",
+        "sha256": "05928e0184d0766707985df8f85b7890c744be4ddaf0d1adb0085eea47f166e5",
+        "sha256_in_prefix": "05928e0184d0766707985df8f85b7890c744be4ddaf0d1adb0085eea47f166e5",
+        "size_in_bytes": 594
+      },
+      {
+        "_path": "site-packages/filelock/_windows.py",
+        "path_type": "hardlink",
+        "sha256": "c2f83efd27c9103cb10de0d51fcc01ab16cfaae5dac9ca185e05c93819a6f86e",
+        "sha256_in_prefix": "c2f83efd27c9103cb10de0d51fcc01ab16cfaae5dac9ca185e05c93819a6f86e",
+        "size_in_bytes": 1890
+      },
+      {
+        "_path": "site-packages/filelock/py.typed",
+        "path_type": "hardlink",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sha256_in_prefix": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size_in_bytes": 0
+      },
+      {
+        "_path": "site-packages/filelock/version.py",
+        "path_type": "hardlink",
+        "sha256": "fca40ed2c0dc6636ee71b43bb3e47398d964713c094268fcc980c82b08664e37",
+        "sha256_in_prefix": "fca40ed2c0dc6636ee71b43bb3e47398d964713c094268fcc980c82b08664e37",
+        "size_in_bytes": 142
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/__init__.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/_api.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/_error.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/_soft.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/_unix.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/_util.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/_windows.cpython-310.pyc",
+        "path_type": "pyc_file"
+      },
+      {
+        "_path": "lib/python3.10/site-packages/filelock/__pycache__/version.cpython-310.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "2746bf7357cc5887d9cb6a26d8a13865ce164419db0dc4a6cf0062b70e69b7df",
+  "size": 12080,
+  "subdir": "noarch",
+  "timestamp": 1645136937655,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/filelock-3.6.0-pyhd8ed1ab_0.tar.bz2",
+  "version": "3.6.0"
+}
