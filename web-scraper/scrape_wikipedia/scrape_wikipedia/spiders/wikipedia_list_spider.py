@@ -3,7 +3,7 @@ import scrapy
 class WikipediaListSpider(scrapy.Spider):
     name = "wikipedia_list"
     start_urls = [
-        'https://en.wikipedia.org/wiki/List_of_psychotherapies'
+        'https://en.wikipedia.org/wiki/List_of_wars_of_independence'
     ]
 
     def parse(self, response):
