@@ -1,25 +1,25 @@
 import scrapy
 
-class WikipediaSpider(scrapy.Spider):
-    name = "wikipedia"
+class WikipediaOutlineSpider(scrapy.Spider):
+    name = "wikipedia_outline"
     start_urls = [
-        'https://en.wikipedia.org/wiki/Wikipedia:Contents/Outlines'
+        'https://en.wikipedia.org/wiki/Outline_of_transport'
     ]
 
     def parse(self, response):
         #Get all the links in the contents of this page
-        for link in response.css('.contentsPage__section a'): 
+        for link in response.css('#mw-content-text a'):
+            if link.css('a::attr(href)').get() == None:
+                continue
             link_href = link.css('a::attr(href)').get() #Get the href attribute of the link
             if '#' in link_href:
                 #This skips links to sections in this same page
                 continue
-            elif link_href[0:5] == 'File:':
+            elif link_href[0:5] == 'File:' or link_href.split('/')[2][0:4] == 'File':
                 #This skips linked files in this page
-                #This mostly (entirely?) consists of map image files in the Geography section
                 continue
             elif link_href.split('/')[1] != 'wiki':
-                #There are currently no pages on the contents/outline page that meet this criteria
-                #But this is still here to help handle errors if such pages are introduced in the future
+                #This skips external links
                 continue
             elif link_href.split('/')[2][0:4] == 'List':
                 #This handles all the lists
@@ -66,8 +66,24 @@ class WikipediaSpider(scrapy.Spider):
                     #Yield this list with the node name and direct address
                     'outline': [node_name, 'https://en.wikipedia.org/wiki/' + relative_address]
                 }
+            elif link_href.split('/')[2][0:8] == 'Category' or link_href.split('/')[2][0:6] == 'Portal':
+                #Skipping Categories and Portals
+                #Though this information can be useful, it seems there
+                #...is quite a great deal of redundancy between categories/portals, and outlines
+                #...(NEEDSCONFIRMATION): There is little point of including these since we already
+                #........................are using the outlines
+                continue
+            elif link_href.split('/')[2][0:8] == 'Template' or link_href.split('/')[2][0:9] == 'Wikipedia':
+            	#Template links are for Wikipedia editing purposes
+            	#Links starting with Wikipedia are Top-level contents, outlines, etc.
+            	continue
             else:
-                #The only thing left is direct links to pages
-                #We skip these here as they will be handled within the lower level outlines
-                #This code is just a placeholder in case this becomes useful in the future
-                pass
+                #This handles all the rest of the links
+                #These should all be articles
+                #In this case, the relative address is the node name (no need to clean it up)
+                relative_address = link_href.split('/')[2]
+                node_name = relative_address
+                yield {
+                    #Yield this list with the node name and direct address
+                    'article': [node_name, 'https://en.wikipedia.org/wiki/' + relative_address]
+                }
