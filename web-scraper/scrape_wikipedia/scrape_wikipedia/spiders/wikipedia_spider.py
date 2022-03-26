@@ -10,6 +10,7 @@ class WikipediaSpider(scrapy.Spider):
     def parse(self, response):
         #Get all the links in the contents of this page
         for link in response.css('.contentsPage__section a'):
+            isArticle = False
             if link.css('a::attr(href)').get() is None: #If there is no link, skip
                 continue
             node_link = None
@@ -75,15 +76,23 @@ class WikipediaSpider(scrapy.Spider):
                     'outline': [node_name, node_link]
                 }
             else:
-                #The only thing left is direct links to pages
-                #We skip these here as they will be handled within the lower level outlines
-                #This code is just a placeholder in case this becomes useful in the future
-                pass
-            if node_link is not None:
+                #This handles all the rest of the links
+                #These should all be articles
+                relative_address = link_href.split('/')[2]
+                if '#' in relative_address: #If there is an in-page reference in the link, the node name is the maing page only
+                    node_name = relative_address.split('#')[0]
+                else: #Else the relative address is the node name (no need to clean it up)
+                    node_name = relative_address
+                node_link = 'https://en.wikipedia.org/wiki/' + relative_address
+                isArticle = True
+            if isArticle:
+                yield scrapy.Request(node_link, callback=self.parseArticle, cb_kwargs=dict(parent_node=node_name))
+            elif node_link is not None:
                 yield scrapy.Request(node_link, callback=self.parseSecondary, cb_kwargs=dict(parent_node=node_name))
 
 
     def parseSecondary(self, response, parent_node):
+        isArticle = False
         #Get all the links in the contents of this page
         for link in response.css('#mw-content-text a'):
             if link.css('a::attr(href)').get() is None: #If there is no link, skip
@@ -162,41 +171,43 @@ class WikipediaSpider(scrapy.Spider):
             else:
                 #This handles all the rest of the links
                 #These should all be articles
-                #In this case, the relative address is the node name (no need to clean it up)
+                #These should all be articles
                 relative_address = link_href.split('/')[2]
-                node_name = relative_address
+                if '#' in relative_address: #If there is an in-page reference in the link, the node name is the maing page only
+                    node_name = relative_address.split('#')[0]
+                else: #Else the relative address is the node name (no need to clean it up)
+                    node_name = relative_address
                 node_link = 'https://en.wikipedia.org/wiki/' + relative_address
                 yield {
                     #Yield this list with the node name and direct address
                     'article': [node_name, node_link, (parent_node, 1, node_name)]
                 }
+                isArticle = True
+            if isArticle:
+                yield scrapy.Request(node_link, callback=self.parseArticle, cb_kwargs=dict(parent_node=node_name))
+            elif node_link is not None:
+                yield scrapy.Request(node_link, callback=self.parseSecondary, cb_kwargs=dict(parent_node=node_name))
 
-    def parsePage(self, response, parent_node):
-        #Get all the links in the contents of this page
-        for link in response.css('#mw-content-text a'):
-            if link.css('a::attr(href)').get() is None: #If there is no link, skip
+    def parseArticle(self, response, parent_node):
+        #Get everything in the content section of the article
+        content = response.css('#content')
+        for element in content.css('a, h2'): #Get all links and h2 elements
+            if element.css('h2'):
+                #If the spider has reached the first h2 element
+                #we have finished crawlind the introduction section
+                break
+            if element.css('a::attr(href)').get() is None: #If there is no link, skip
                 continue
             node_link = None
-            link_href = link.css('a::attr(href)').get() #Get the href attribute of the link
-            if '#' in link_href:
+            link_href = element.css('a::attr(href)').get() #Get the href attribute of the link
+            if link_href[0] == '#':
                 #This skips links to sections in this same page
                 continue
-            elif link_href[0:5] == 'File:' or link_href.split('/')[2][0:4] == 'File':
-                #This skips linked files in this page
+            elif link_href[0:5] == 'File:' or link_href.split('/')[2][0:5] == 'File:':
+                #This skips linked files
                 continue
             elif link_href.split('/')[1] != 'wiki':
-                #This skips external links
-                continue
-            elif link_href.split('/')[2][0:8] == 'Category' or link_href.split('/')[2][0:6] == 'Portal':
-                #Skipping Categories and Portals
-                #Though this information can be useful, it seems there
-                #...is quite a great deal of redundancy between categories/portals, and outlines
-                #...(NEEDSCONFIRMATION): There is little point of including these since we already
-                #........................are using the outlines
-                continue
-            elif link_href.split('/')[2][0:8] == 'Template' or link_href.split('/')[2][0:9] == 'Wikipedia':
-                #Template links are for Wikipedia editing purposes
-                #Links starting with Wikipedia are Top-level contents, outlines, etc.
+                #Skip all external links
                 continue
             elif link_href.split('/')[2][0:4] == 'List':
                 #This handles all the lists
@@ -214,7 +225,7 @@ class WikipediaSpider(scrapy.Spider):
                 node_link = 'https://en.wikipedia.org/wiki/' + relative_address
                 yield {
                     #Yield this list with the node name and direct address
-                    'list': [node_name, node_link, (parent_node, 1, node_name)]
+                    'list': [node_name, node_link]
                 }
             elif link_href.split('/')[2][0:8] == 'Timeline':
                 #This handles all the timelines
@@ -230,7 +241,7 @@ class WikipediaSpider(scrapy.Spider):
                 node_link = 'https://en.wikipedia.org/wiki/' + relative_address
                 yield {
                     #Yield this list with the node name and direct address
-                    'timeline': [node_name, node_link, (parent_node, 1, node_name)]
+                    'timeline': [node_name, node_link]
                 }
             elif link_href.split('/')[2][0:7] == 'Outline':
                 #This handles all the outlines
@@ -245,14 +256,27 @@ class WikipediaSpider(scrapy.Spider):
                 node_link = 'https://en.wikipedia.org/wiki/' + relative_address
                 yield {
                     #Yield this list with the node name and direct address
-                    'outline': [node_name, node_link, (parent_node, 1, node_name)]
+                    'outline': [node_name, node_link]
                 }
+            elif link_href.split('/')[2][0:8] == 'Category' or link_href.split('/')[2][0:6] == 'Portal':
+                #Skipping Categories and Portals
+                #Though this information can be useful, it seems there
+                #...is quite a great deal of redundancy between categories/portals, and outlines
+                #...(NEEDSCONFIRMATION): There is little point of including these since we already
+                #........................are using the outlines
+                continue
+            elif link_href.split('/')[2][0:8] == 'Template' or link_href.split('/')[2][0:9] == 'Wikipedia':
+                #Template links are for Wikipedia editing purposes
+                #Links starting with Wikipedia are Top-level contents, outlines, etc.
+                continue
             else:
                 #This handles all the rest of the links
                 #These should all be articles
-                #In this case, the relative address is the node name (no need to clean it up)
                 relative_address = link_href.split('/')[2]
-                node_name = relative_address
+                if '#' in relative_address: #If there is an in-page reference in the link, the node name is the maing page only
+                    node_name = relative_address.split('#')[0]
+                else: #Else the relative address is the node name (no need to clean it up)
+                    node_name = relative_address
                 node_link = 'https://en.wikipedia.org/wiki/' + relative_address
                 yield {
                     #Yield this list with the node name and direct address
