@@ -1,20 +1,22 @@
 import scrapy
 
 def handleListLinks(link_href):
-        #This handles all the lists
-        relative_address = link_href.split('/')[2]
-        node_name = ''
-        #Clean up the relative address to get a meaningful and machine readable name for the node
-        #This removes the words "Lists_of" from the relative address
-        #Also removes the word "topic" or "topics" which is at the end of a few of the addresses
-        for i, s in enumerate(relative_address.split('_')[2:len(relative_address)]):
-            if 'topic' in s:
-                continue
-            if i != 0:
-                node_name += '_'
-            node_name += s
-        node_link = 'https://en.wikipedia.org/wiki/' + relative_address
-        return node_name, node_link
+    #This handles all the lists
+    relative_address = link_href.split('/')[2]
+    node_name = ''
+    #Clean up the relative address to get a meaningful and machine readable name for the node
+    #This removes the words "Lists_of" from the relative address
+    #Also removes the word "topic" or "topics" which is at the end of a few of the addresses
+    if '#' in relative_address: #If there is an in-page reference in the link, the node name is the maing page only
+        relative_address = relative_address.split('#')[0]
+    for i, s in enumerate(relative_address.split('_')[2:len(relative_address)]):
+        if 'topic' in s:
+            continue
+        if i != 0:
+            node_name += '_'
+        node_name += s
+    node_link = 'https://en.wikipedia.org/wiki/' + relative_address
+    return node_name, node_link
         
 def handleTimelineLinks(link_href):
     #This handles all the timelines
@@ -22,6 +24,8 @@ def handleTimelineLinks(link_href):
     node_name = ''
     #Clean up the relative address to get a meaningful and machine readable name for the node
     #This removes the words "Timeline_of" from the relative address
+    if '#' in relative_address: #If there is an in-page reference in the link, the node name is the maing page only
+        relative_address = relative_address.split('#')[0]
     for i, s in enumerate(relative_address.split('_')[2:len(relative_address)]):
         if i != 0:
             node_name += '_'
@@ -35,6 +39,8 @@ def handleOutlineLinks(link_href):
     node_name = ''
     #Clean up the relative address to get a meaningful and machine readable name for the node
     #This removes the words "Outline_of" from the relative address
+    if '#' in relative_address: #If there is an in-page reference in the link, the node name is the maing page only
+        relative_address = relative_address.split('#')[0]
     for i, s in enumerate(relative_address.split('_')[2:len(relative_address)]):
         if i != 0:
             node_name += '_'
@@ -52,7 +58,7 @@ def handleArticleLinks(link_href):
     node_link = 'https://en.wikipedia.org/wiki/' + relative_address
     return node_name, node_link
 
-def getNodeFromLink(link_href, parent_node):
+def getNodeFromLink(link_href):
     link_type = None
     node_link = None
     node_name = None
@@ -77,26 +83,20 @@ def getNodeFromLink(link_href, parent_node):
         #Template links are for Wikipedia editing purposes
         #Links starting with Wikipedia are Top-level contents, outlines, etc.
         pass
-    elif link_href.split('/')[2][0:7] == 'Special':
+    elif link_href.split('/')[2][0:7] == 'Special' or link_href.split('/')[2][0:4] == 'ISBN':
         #Special links have to do mostly with project maintenance
         #https://en.wikipedia.org/wiki/Help:Special_page
+        #ISBN links all lead to the same ISBN identifiers page
+        #https://en.wikipedia.org/wiki/International_Standard_Book_Number
         pass
     elif link_href.split('/')[2][0:4] == 'List':
         pass #Skipping this for now, need to determine how to parse lists, if at all
         #link_type = 'list'
         #node_name, node_link = handleListLinks(link_href)
-        #yield {
-            #Yield this list with the node name and direct address
-        #    'list': [node_name, node_link, (parent_node, 1, node_name)]
-        #}
     elif link_href.split('/')[2][0:8] == 'Timeline':
         pass #Skipping this for now, need to determine how to parse timelines, if at all
         #link_type = 'timeline'
         #node_name, node_link = handleTimelineLinks(link_href)
-        #yield {
-            #Yield this list with the node name and direct address
-        #    'timeline': [node_name, node_link, (parent_node, 1, node_name)]
-        #}
     elif link_href.split('/')[2][0:7] == 'Outline':
         link_type = 'outline'
         node_name, node_link = handleOutlineLinks(link_href)
@@ -112,7 +112,7 @@ class WikipediaSpider(scrapy.Spider):
     start_urls = [
         'https://en.wikipedia.org/wiki/Wikipedia:Contents/Outlines'
     ]
-    download_delay = 1
+    download_delay = 2
 
     def getNextRequest(self, link_type, node_name, node_link):
         if link_type == 'article':
@@ -123,65 +123,27 @@ class WikipediaSpider(scrapy.Spider):
     def parse(self, response):
         #Get all the links in the contents of this page
         for link in response.css('.contentsPage__section a'):
-            if link.css('a::attr(href)').get() is None: #If there is no link, skip
+            if link.css('a::attr(href)').get() is None:
                 continue
 
-            link_type = None
-            node_link = None
-            node_name = None
+            link_href = link.css('a::attr(href)').get()
 
-            link_href = link.css('a::attr(href)').get() #Get the href attribute of the link
-
-            if '#' in link_href:
-                #This skips links to sections in this same page
-                continue
-            elif link_href[0:5] == 'File:':
-                #This skips linked files in this page
-                #This mostly (entirely?) consists of map image files in the Geography section
-                continue
-            elif link_href.split('/')[1] != 'wiki':
-                #There are currently no pages on the contents/outline page that meet this criteria
-                #But this is still here to help handle errors if such pages are introduced in the future
-                continue
-            elif link_href.split('/')[2][0:4] == 'List':
-                continue #Skipping this for now, need to determine how to parse Lists, if at all
-                link_type = 'list'
-                node_name, node_link = handleListLinks(link_href)
-                yield {
-                    'list': [node_name, node_link]
-                }
-            elif link_href.split('/')[2][0:8] == 'Timeline':
-                continue #Skipping this for now, need to determine how to parse timelines, if at all
-                link_type = 'timeline'
-                node_name, node_link = handleTimelineLinks(link_href)
-                yield {
-                    'timeline': [node_name, node_link]
-                }
-            elif link_href.split('/')[2][0:7] == 'Outline':
-                link_type = 'outline'
-                node_name, node_link = handleOutlineLinks(link_href)
-                yield {
-                    'outline': [node_name, node_link]
-                }
-            else:
-                link_type = 'article'
-                node_name, node_link = handleArticleLinks(link_href)
-                yield {
-                    'article': [node_name, node_link]
-                }
+            link_type, node_name, node_link = getNodeFromLink(link_href)
 
             if link_type != None:
+                yield {
+                    '{}'.format(link_type): [node_name, node_link]
+                }
                 yield self.getNextRequest(link_type, node_name, node_link)
             
-
     def parseOutline(self, response, parent_node):
         #Get all the links in the contents of this page
         for link in response.css('#mw-content-text a'):
-            if link.css('a::attr(href)').get() is None: #If there is no link, skip
+            if link.css('a::attr(href)').get() is None:
                 continue
 
-            link_href = link.css('a::attr(href)').get() #Get the href attribute of the link
-            link_type, node_name, node_link = getNodeFromLink(link_href, parent_node)
+            link_href = link.css('a::attr(href)').get()
+            link_type, node_name, node_link = getNodeFromLink(link_href)
             
             if link_type is not None:
                 yield {
@@ -190,19 +152,18 @@ class WikipediaSpider(scrapy.Spider):
                 yield self.getNextRequest(link_type, node_name, node_link)
 
     def parseArticle(self, response, parent_node):
-        #Get everything in the content section of the article
-        content = response.css('#content')
-        for element in content.css('a, h2'): #Get all links and h2 elements
+        #Get all links and h2 elements in the content section of the article
+        for element in response.css('#content a, h2'):
             if element.css('h2'):
                 #If the spider has reached the first h2 element
                 #we have finished crawlind the introduction section
                 break
             link = element
-            if link.css('a::attr(href)').get() is None: #If there is no link, skip
+            if link.css('a::attr(href)').get() is None:
                 continue
 
-            link_href = link.css('a::attr(href)').get() #Get the href attribute of the link
-            link_type, node_name, node_link = getNodeFromLink(link_href, parent_node)
+            link_href = link.css('a::attr(href)').get()
+            link_type, node_name, node_link = getNodeFromLink(link_href)
             
             if link_type is not None:
                 yield {
