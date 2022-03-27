@@ -103,6 +103,5 @@ class WikipediaSpider(scrapy.Spider):
                     #Yield this list with the node name and direct address
                     'article': [node_name, node_link, (parent_node, 1, node_name)]
                 }
-            print(node_name)
             #if node_link is not None:
             #    yield scrapy.Request(node_link, callback=self.parseSecondary, cb_kwargs=dict(parent_node=node_name))
