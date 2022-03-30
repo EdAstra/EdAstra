@@ -72,32 +72,33 @@ def getNodeFromLink(link_href):
     elif link_href.split('/')[1] != 'wiki':
         #This skips external links
         pass
-    elif link_href.split('/')[2][0:8] == 'Category' or link_href.split('/')[2][0:6] == 'Portal':
+    elif link_href.split('/')[2][0:9] == 'Category:' or link_href.split('/')[2][0:7] == 'Portal:':
         #Skipping Categories and Portals
         #Though this information can be useful, it seems there
         #...is quite a great deal of redundancy between categories/portals, and outlines
         #...(NEEDSCONFIRMATION): There is little point of including these since we already
         #........................are using the outlines
         pass
-    elif link_href.split('/')[2][0:8] == 'Template' or link_href.split('/')[2][0:9] == 'Wikipedia':
+    elif link_href.split('/')[2][0:9] == 'Template:' or link_href.split('/')[2][0:10] == 'Wikipedia:':
         #Template links are for Wikipedia editing purposes
         #Links starting with Wikipedia are Top-level contents, outlines, etc.
         pass
-    elif link_href.split('/')[2][0:7] == 'Special' or link_href.split('/')[2][0:4] == 'ISBN':
+    elif link_href.split('/')[2][0:8] == 'Special:' or link_href.split('/')[2][0:5] == 'Help:' or link_href.split('/')[2][0:4] == 'ISBN':
         #Special links have to do mostly with project maintenance
         #https://en.wikipedia.org/wiki/Help:Special_page
+        #Help pages are...help pages for Wikipedia
         #ISBN links all lead to the same ISBN identifiers page
         #https://en.wikipedia.org/wiki/International_Standard_Book_Number
         pass
-    elif link_href.split('/')[2][0:4] == 'List':
+    elif link_href.split('/')[2][0:7] == 'List_of' or link_href.split('/')[2][0:8] == 'Lists_of':
         pass #Skipping this for now, need to determine how to parse lists, if at all
         #link_type = 'list'
         #node_name, node_link = handleListLinks(link_href)
-    elif link_href.split('/')[2][0:8] == 'Timeline':
+    elif link_href.split('/')[2][0:11] == 'Timeline_of':
         pass #Skipping this for now, need to determine how to parse timelines, if at all
         #link_type = 'timeline'
         #node_name, node_link = handleTimelineLinks(link_href)
-    elif link_href.split('/')[2][0:7] == 'Outline':
+    elif link_href.split('/')[2][0:10] == 'Outline_of':
         link_type = 'outline'
         node_name, node_link = handleOutlineLinks(link_href)
     else:
@@ -112,7 +113,15 @@ class WikipediaSpider(scrapy.Spider):
     start_urls = [
         'https://en.wikipedia.org/wiki/Wikipedia:Contents/Outlines'
     ]
-    download_delay = 2
+
+    custom_settings = {
+        #Autothrottle the spider to avoid overtaxing the Wikipedia servers
+        #https://docs.scrapy.org/en/latest/topics/autothrottle.html
+        'AUTOTHROTTLE_ENABLED': True,
+        'AUTOTHROTTLE_START_DELAY': 3,
+        'AUTOTHROTTLE_MAX_DELAY': 60,
+        'AUTOTHROTTLE_TARGET_CONCURRENCY': 0.5
+    }
 
     def getNextRequest(self, link_type, node_name, node_link):
         if link_type == 'article':
@@ -169,4 +178,6 @@ class WikipediaSpider(scrapy.Spider):
                 yield {
                     '{}'.format(link_type): [node_name, node_link, (parent_node, 1, node_name)]
                 }
-                yield self.getNextRequest(link_type, node_name, node_link)
+                #For now, end at articles, to see the size of the initial data set
+                #yield self.getNextRequest(link_type, node_name, node_link)
+
