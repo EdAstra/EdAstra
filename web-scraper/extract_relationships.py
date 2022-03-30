@@ -1,11 +1,11 @@
 import json
 import os
 
-f = open('./scrape_wikipedia/scrape_wikipedia/wikipedia_mini.json', 'r')
+f = open('./scrape_wikipedia/scrape_wikipedia/wikipedia.json', 'r')
 
 data = json.loads(f.read())
 
-with open('relationships_test.json','w') as relationships:
+with open('relationships.json','w') as relationships:
 	relationships.write('[')
 	for element in data:
 		for key, value in element.items():
