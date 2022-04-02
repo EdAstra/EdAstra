@@ -1,7 +1,7 @@
 import json
 import os
 
-f = open('../web-scraper/data/wikipedia.json', 'r')
+f = open('./data/wikipedia.json', 'r')
 
 data = json.loads(f.read())
 
