@@ -1,39 +1,41 @@
 import json
-import torch
-import gensim
-from gensim.models import KeyedVectors
-from torchtext.data.utils import get_tokenizer
-from collections import Counter
-from torchtext import vocab
-from torchtext.data.datasets_utils import (
-    _RawTextIterableDataset,
-    _wrap_split_argument,
-    _add_docstring_header,
-    _create_dataset_directory,
-)
+import fasttext
 
 import numpy as np
-from numpy import dot
-from numpy.linalg import norm
 
-para_array = np.array(paragraph_vector)
-cos_sim_max = -1000000
+def is_number(s):
+    #https://stackoverflow.com/questions/354038/how-do-i-check-if-a-string-is-a-number-float
+    return s.replace('.','',1).isdigit()
 
-print('Loading BWV model')
+#import fasttext vectors
 
-wv_from_bin = KeyedVectors.load_word2vec_format('BioWordVec_PubMed_MIMICIII_d200.vec.bin', binary=True)
-print('Finished loading BWV model')
+#for each node
+    #get vector for node
+    #add node (key) and vector (value) to dictionary
+#write dictionary to file
 
-print('Getting embedding vectors for tokens in vocab')
+f = open('./data/nodes.json', 'r') # Get relationships with weights data (we just need the nodes)
+nodes = json.load(f)
 
-for key in wv_from_bin.index_to_key:
-    wv_array = np.array(wv_from_bin[key])
-    cos_sim = dot(para_array, wv_array)/(norm(para_array)*norm(wv_array))
-    if cos_sim > cos_sim_max*.98:
-        print(key, cos_sim)
-        if cos_sim > cos_sim_max:
-            cos_sim_max = cos_sim
+print('Loading Fasttext model')
+wiki_model = fasttext.load_model('./data/wiki.en.bin')
+print('Finished loading Fasttext model')
 
-for node_name, node_name_tokens in nodes:
-	node_vector = #List of 100 zeros
-	
+node_vectors = {}
+
+print('Getting vectors for each node')
+for node, node_tokens in nodes.items():
+    node_vectors[node] =  np.zeros(300)
+    for token in node_tokens:
+        if token in ['(', ')', ',', '%'] or is_number(token):
+            continue
+        else:
+            token_array = np.array(wiki_model[token])
+            node_vectors[node] = np.add(node_vectors[node], token_array)
+    node_vectors[node] = node_vectors[node].tolist()
+print('Finished getting vectors')
+
+print('Writing vectors to file')
+with open('./data/node_vectors.json','w') as nv: # Write the data to a file
+    nv.write(json.dumps(node_vectors))
+print('Finished writing vectors file')

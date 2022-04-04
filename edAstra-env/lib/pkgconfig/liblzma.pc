@@ -5,10 +5,10 @@
 # You can do whatever you want with this file.
 #
 
-prefix=/Users/kevinme/edAstra/edAstra-env
-exec_prefix=/Users/kevinme/edAstra/edAstra-env
-libdir=/Users/kevinme/edAstra/edAstra-env/lib
-includedir=/Users/kevinme/edAstra/edAstra-env/include
+prefix=/home/kevin/Projects/edAstra/edAstra-env
+exec_prefix=/home/kevin/Projects/edAstra/edAstra-env
+libdir=/home/kevin/Projects/edAstra/edAstra-env/lib
+includedir=/home/kevin/Projects/edAstra/edAstra-env/include
 
 Name: liblzma
 Description: General purpose data compression library
@@ -16,4 +16,4 @@ URL: https://tukaani.org/xz/
 Version: 5.2.5
 Cflags: -I${includedir}
 Libs: -L${libdir} -llzma
-Libs.private: -pthread -lpthread
+Libs.private: -pthread -lrt  -lpthread

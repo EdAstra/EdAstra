@@ -1,13 +1,13 @@
 # Package Information for pkg-config
 
-prefix=/Users/kevinme/edAstra/edAstra-env
+prefix=/home/kevin/Projects/edAstra/edAstra-env
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: SQLite
 Description: SQL database engine
-Version: 3.37.0
+Version: 3.38.2
 Libs: -L${libdir} -lsqlite3
-Libs.private: -lz 
+Libs.private: -lz -lm -ldl -lpthread 
 Cflags: -I${includedir}

@@ -1,12 +1,12 @@
-prefix=/Users/kevinme/edAstra/edAstra-env
+prefix=/home/kevin/Projects/edAstra/edAstra-env
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
-enginesdir=${libdir}/engines-3
+enginesdir=${libdir}/engines-1.1
 
 Name: OpenSSL-libcrypto
 Description: OpenSSL cryptography library
-Version: 3.0.0
+Version: 1.1.1n
 Libs: -L${libdir} -lcrypto
-Libs.private:  
+Libs.private: -ldl -pthread 
 Cflags: -I${includedir}

@@ -1,4 +1,4 @@
-#!/Users/kevinme/edAstra/edAstra-env/bin/python3.10
+#!/home/kevin/Projects/edAstra/edAstra-env/bin/python3.10
 
 import pydoc
 if __name__ == '__main__':

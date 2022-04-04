@@ -1,4 +1,4 @@
-prefix=/Users/kevinme/edAstra/edAstra-env
+prefix=/home/kevin/Projects/edAstra/edAstra-env
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 sharedlibdir=${libdir}

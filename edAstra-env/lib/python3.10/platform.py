@@ -964,7 +964,7 @@ def processor():
 ### Various APIs for extracting information from sys.version
 
 _sys_version_parser = re.compile(
-    r'([\w.+]+)\s*(?:\ \|\ packaged\ by\ conda\-forge\ \|)?\s*'
+    r'([\w.+]+)\s*'  # "version<space>"
     r'\(#?([^,]+)'  # "(#buildno"
     r'(?:,\s*([\w ]*)'  # ", builddate"
     r'(?:,\s*([\w :]*))?)?\)\s*'  # ", buildtime)<space>"

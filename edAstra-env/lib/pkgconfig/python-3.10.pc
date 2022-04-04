@@ -1,5 +1,5 @@
 # See: man pkg-config
-prefix=/Users/kevinme/edAstra/edAstra-env
+prefix=/home/kevin/Projects/edAstra/edAstra-env
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
@@ -8,6 +8,6 @@ Name: Python
 Description: Build a C extension for Python
 Requires:
 Version: 3.10
-Libs.private: -ldl   -framework CoreFoundation
+Libs.private: -lcrypt -lpthread -ldl  -lutil -lm
 Libs:
 Cflags: -I${includedir}/python3.10

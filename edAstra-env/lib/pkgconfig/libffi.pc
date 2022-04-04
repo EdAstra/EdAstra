@@ -1,11 +1,11 @@
-prefix=/Users/kevinme/edAstra/edAstra-env
+prefix=/home/kevin/Projects/edAstra/edAstra-env
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 toolexeclibdir=${libdir}
-includedir=/Users/kevinme/edAstra/edAstra-env/include
+includedir=/home/kevin/Projects/edAstra/edAstra-env/include
 
 Name: libffi
 Description: Library supporting Foreign Function Interfaces
-Version: 3.4.2
+Version: 3.3
 Libs: -L${toolexeclibdir} -lffi
 Cflags: -I${includedir}

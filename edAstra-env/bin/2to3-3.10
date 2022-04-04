@@ -1,4 +1,4 @@
-#!/Users/kevinme/edAstra/edAstra-env/bin/python3.10
+#!/home/kevin/Projects/edAstra/edAstra-env/bin/python3.10
 import sys
 from lib2to3.main import main
 
