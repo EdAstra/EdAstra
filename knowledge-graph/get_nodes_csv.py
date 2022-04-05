@@ -4,7 +4,7 @@ import csv
 f = open('./data/node_vectors.json', 'r') # Get relationships with weights data (we just need the nodes)
 nodes = json.load(f)
 
-with open('data/nodes.csv', 'w', newline='') as csvfile:
+with open('data/node_vectors.csv', 'w', newline='') as csvfile:
     fieldnames = ['node', 'x', 'y', 'z']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
