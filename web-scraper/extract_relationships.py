@@ -2,7 +2,7 @@ import json
 import os
 
 #Get the results of the web scraper
-f = open('../web-scraper/data/wikipedia.json', 'r')
+f = open('./data/wikipedia_academic_disciplines.json', 'r')
 
 #Load the data from it's JSON format as a dictionary
 data = json.loads(f.read())
@@ -10,7 +10,7 @@ data = json.loads(f.read())
 ######### TODO: Create logic to not add relationships if connected nodes
 #########		are the same node. e.g. ('apple', 1, 'apple')
 
-with open('./data/relationships.json','w') as relationships: #writing to a new file
+with open('./data/relationships_academic_disciplines.json','w') as relationships: #writing to a new file
 	relationships.write('[') #Start the list
 	for element in data:
 		for key, value in element.items():

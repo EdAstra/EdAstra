@@ -13,7 +13,7 @@ def getNodeWords(node): # Tokenize and remove stop words
 	filtered_words = [word for word in tokenizedWords if not word in stop_words]
 	return filtered_words
 
-f = open('./data/relationships_with_weights.json', 'r') # Get relationships with weights data (we just need the nodes)
+f = open('./data/relationships_academic_disciplines_with_weights.json', 'r') # Get relationships with weights data (we just need the nodes)
 relationships_with_weights = json.load(f)
 
 nodes = {}
@@ -25,7 +25,7 @@ for node, connected_nodes in relationships_with_weights.items(): # For the nodes
 			if connected_node not in nodes: # If the connected node has not been seen
 				nodes[connected_node] = getNodeWords(connected_node) # Add it to the nodes dict and get the word list for the node name
 
-with open('./data/nodes.json','w') as f: # Write the data to a file
+with open('./data/nodes_academic_disciplines.json','w') as f: # Write the data to a file
 	f.write(json.dumps(nodes, indent = 6))
 
 

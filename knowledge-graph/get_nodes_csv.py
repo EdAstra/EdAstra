@@ -1,13 +1,13 @@
 import json
 import csv
 
-f = open('./data/node_vectors.json', 'r') # Get relationships with weights data (we just need the nodes)
+f = open('./data/node_vectors_academic_disciplines.json', 'r') # Get relationships with weights data (we just need the nodes)
 nodes = json.load(f)
 
-with open('data/node_vectors.csv', 'w', newline='') as csvfile:
+with open('data/node_vectors_academic_disciplines.csv', 'w', newline='') as csvfile:
     fieldnames = ['node', 'x', 'y', 'z']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
     writer.writeheader()
     for node_name, vector in nodes.items():
-	    writer.writerow({'node': node_name, 'x': vector[0], 'y': vector[1], 'z': vector[2]})
+        writer.writerow({'node': node_name, 'x': vector[0], 'y': vector[1], 'z': vector[2]})

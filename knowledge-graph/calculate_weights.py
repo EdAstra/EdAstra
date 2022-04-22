@@ -1,6 +1,6 @@
 import json
 
-f = open('./data/relationships.json', 'r') #Get the list of relationships
+f = open('./data/relationships_academic_disciplines.json', 'r') #Get the list of relationships
 relationships = json.load(f) #And load as a dict
 
 nodes = {}
@@ -27,5 +27,5 @@ for rel in relationships:
 	else:									# If both nodes have already been seen
 		nodes[rel[0]][rel[2]] += rel[1] 	#    increment the weight
 
-with open('./data/relationships_with_weights.json','w') as f: # Write this data to a file
+with open('./data/relationships_academic_disciplines_with_weights.json','w') as f: # Write this data to a file
 	f.write(json.dumps(nodes, indent = 6))

@@ -8,7 +8,7 @@ def is_number(s):
     #https://stackoverflow.com/questions/354038/how-do-i-check-if-a-string-is-a-number-float
     return s.replace('.','',1).isdigit()
 
-f = open('./data/nodes.json', 'r') # Get relationships with weights data (we just need the nodes)
+f = open('./data/nodes_academic_disciplines.json', 'r') # Get relationships with weights data (we just need the nodes)
 nodes = json.load(f)
 
 print('Loading Fasttext model')
@@ -33,6 +33,6 @@ for node, node_tokens in nodes.items():
 print('Finished getting vectors')
 
 print('Writing vectors to file')
-with open('./data/node_vectors.json','w') as nv: # Write the data to a file
+with open('./data/node_vectors_academic_disciplines.json','w') as nv: # Write the data to a file
     nv.write(json.dumps(node_vectors, indent = 6))
 print('Finished writing vectors file')
