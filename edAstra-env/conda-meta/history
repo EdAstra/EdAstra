@@ -135,3 +135,60 @@
 +conda-forge/linux-64::pybind11-global-2.9.2-py310hbf28c38_1
 +conda-forge/linux-64::python_abi-3.10-2_cp310
 # update specs: ['fasttext']
+==> 2022-04-08 21:22:17 <==
+# cmd: /home/kevin/anaconda3/bin/conda install -c conda-forge scrapy
+# conda version: 4.12.0
++conda-forge/linux-64::bcrypt-3.2.0-py310h6acc77f_2
++conda-forge/linux-64::brotlipy-0.7.0-py310h5764c6d_1004
++conda-forge/linux-64::cryptography-36.0.2-py310h597c629_1
++conda-forge/linux-64::icu-68.2-h9c3ff4c_0
++conda-forge/linux-64::libiconv-1.16-h516909a_0
++conda-forge/linux-64::libxml2-2.9.10-h72842e0_4
++conda-forge/linux-64::libxslt-1.1.33-h15afd5d_2
++conda-forge/linux-64::lxml-4.8.0-py310h5764c6d_1
++conda-forge/linux-64::pysocks-1.7.1-py310hff52083_5
++conda-forge/linux-64::scrapy-2.6.1-py310hff52083_2
++conda-forge/linux-64::twisted-22.2.0-py310h5764c6d_0
++conda-forge/linux-64::zope.interface-5.4.0-py310h5764c6d_2
++conda-forge/noarch::appdirs-1.4.4-pyh9f0ad1d_0
++conda-forge/noarch::attrs-21.4.0-pyhd8ed1ab_0
++conda-forge/noarch::automat-20.2.0-py_0
++conda-forge/noarch::charset-normalizer-2.0.12-pyhd8ed1ab_0
++conda-forge/noarch::constantly-15.1.0-py_0
++conda-forge/noarch::cssselect-1.1.0-py_0
++conda-forge/noarch::filelock-3.6.0-pyhd8ed1ab_0
++conda-forge/noarch::hyperlink-21.0.0-pyhd3deb0d_0
++conda-forge/noarch::idna-3.3-pyhd8ed1ab_0
++conda-forge/noarch::incremental-21.3.0-pyhd8ed1ab_0
++conda-forge/noarch::itemadapter-0.5.0-pyhd8ed1ab_0
++conda-forge/noarch::itemloaders-1.0.4-pyhd8ed1ab_0
++conda-forge/noarch::jmespath-1.0.0-pyhd8ed1ab_0
++conda-forge/noarch::parsel-1.6.0-py_0
++conda-forge/noarch::protego-0.2.1-pyhd8ed1ab_0
++conda-forge/noarch::pyasn1-0.4.8-py_0
++conda-forge/noarch::pyasn1-modules-0.2.7-py_0
++conda-forge/noarch::pycparser-2.21-pyhd8ed1ab_0
++conda-forge/noarch::pydispatcher-2.0.5-py_1
++conda-forge/noarch::pyopenssl-22.0.0-pyhd8ed1ab_0
++conda-forge/noarch::queuelib-1.6.2-pyhd8ed1ab_0
++conda-forge/noarch::requests-2.27.1-pyhd8ed1ab_0
++conda-forge/noarch::requests-file-1.5.1-pyh9f0ad1d_0
++conda-forge/noarch::service_identity-18.1.0-py_0
++conda-forge/noarch::six-1.16.0-pyh6c4a22f_0
++conda-forge/noarch::tldextract-3.2.0-pyhd8ed1ab_0
++conda-forge/noarch::typing-extensions-4.1.1-hd8ed1ab_0
++conda-forge/noarch::typing_extensions-4.1.1-pyha770c72_0
++conda-forge/noarch::urllib3-1.26.9-pyhd8ed1ab_0
++conda-forge/noarch::w3lib-1.22.0-pyh9f0ad1d_0
++defaults/linux-64::cffi-1.15.0-py310hd667e15_1
+# update specs: ['scrapy']
+==> 2022-04-09 09:37:12 <==
+# cmd: /home/kevin/anaconda3/bin/conda install -c conda-forge nltk
+# conda version: 4.12.0
++conda-forge/linux-64::click-8.1.2-py310hff52083_0
++conda-forge/linux-64::regex-2022.3.15-py310h5764c6d_1
++conda-forge/noarch::colorama-0.4.4-pyh9f0ad1d_0
++conda-forge/noarch::joblib-1.1.0-pyhd8ed1ab_0
++conda-forge/noarch::nltk-3.6.7-pyhd8ed1ab_0
++conda-forge/noarch::tqdm-4.64.0-pyhd8ed1ab_0
+# update specs: ['nltk']
