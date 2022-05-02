@@ -2,18 +2,21 @@ import json
 import csv
 
 def getNodeName(node): # This is mostly for aesthetics.
-    name = node.replace('_',' ')
-    return name
-
+    return node.replace('_',' ')
+    
 # Get relationships with weights data
 # This contains nodes, the nodes they are connected to, 
 # and the weights of the connections.
 f = open('./data/relationships_academic_disciplines_with_weights.json', 'r') 
 nodes = json.load(f)
 
+# Get node vectors
+f = open('./data/node_vectors_academic_disciplines_beta.json', 'r') # Get relationships with weights data (we just need the nodes)
+node_vectors = json.load(f)
+
 # Create the csv of knowledge objects to import into Neo4J graph database
-with open('data/neo4j_knowledge_objects.csv', 'w', newline='') as csvfile:
-    fieldnames = ['koId', 'name']
+with open('data/neo4j_knowledge_objects_with_vectors.csv', 'w', newline='') as csvfile:
+    fieldnames = ['koId', 'name', 'x', 'y', 'z']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
     writer.writeheader()
@@ -30,7 +33,8 @@ with open('data/neo4j_knowledge_objects.csv', 'w', newline='') as csvfile:
             node_list.append(node)
             node_name = getNodeName(node)
             koId_dict[node] = koId
-            writer.writerow({'koId': koId, 'name': node_name}) # Write this node to the csv file
+            x,y,z = node_vectors[node]
+            writer.writerow({'koId':koId, 'name':node_name, 'x':x, 'y':y, 'z':z}) # Write this node to the csv file
         for rel_node, weight in relationships.items(): # Look through the list of connected nodes
             if koId > 49000:
                 break
@@ -41,9 +45,10 @@ with open('data/neo4j_knowledge_objects.csv', 'w', newline='') as csvfile:
                 koId += 1
                 node_list.append(rel_node)
                 koId_dict[rel_node] = koId
+                x,y,z = node_vectors[rel_node]
                 this_relationship = [koId_dict[node],koId,weight]
                 relationships_list.append(this_relationship) # Add this relationship to the list
-                writer.writerow({'koId': koId, 'name': rel_node_name}) # Write this node to the csv file
+                writer.writerow({'koId': koId, 'name': rel_node_name, 'x':x, 'y':y, 'z':z}) # Write this node to the csv file
             elif rel_node != node:
                 this_relationship = [koId_dict[rel_node],koId_dict[node],weight]
                 if this_relationship not in relationships_list:
