@@ -29,3 +29,5 @@ africa
 truth
 computer science
 space exploration
+
+Contact: edastra.contact@gmail.com or kevin.menear@gmail.com
