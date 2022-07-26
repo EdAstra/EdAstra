@@ -30,4 +30,4 @@ truth
 computer science
 space exploration
 
-Contact: edastra.contact@gmail.com or kevin.menear@gmail.com
+Contact: edastra.contact@gmail.com (Kevin Menear)
