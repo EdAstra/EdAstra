@@ -1,5 +1,7 @@
 import json
-
+# NOTE: The file written here never gets used
+#       this script should be deleted.
+#
 # Open the file containing nodes and their connected nodes
 # with the weight of the connection.
 # What is being created here is very similar to this original file.
