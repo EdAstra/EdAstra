@@ -1,0 +1,13 @@
+prefix=/home/kevin/Projects/edAstra/edAstra-env
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+modules=1
+
+Name: libXML
+Version: 2.9.10
+Description: libXML library version2.
+Requires:
+Libs: -L${libdir} -lxml2
+Libs.private: -L/home/kevin/Projects/edAstra/edAstra-env/lib -licui18n -licuuc -licudata -lpthread -L/home/kevin/Projects/edAstra/edAstra-env/lib -lz -L/home/kevin/Projects/edAstra/edAstra-env/lib -llzma -L/home/kevin/Projects/edAstra/edAstra-env/lib -liconv -lm  
+Cflags: -I${includedir}/libxml2 -I/home/kevin/Projects/edAstra/edAstra-env/include 

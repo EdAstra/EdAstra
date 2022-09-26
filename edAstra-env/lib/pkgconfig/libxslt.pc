@@ -1,0 +1,12 @@
+prefix=/home/kevin/Projects/edAstra/edAstra-env
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+
+Name: libxslt
+Version: 1.1.33
+Description: XSLT library version 2.
+Requires: libxml-2.0
+Libs: -L${libdir} -lxslt -L/home/kevin/Projects/edAstra/edAstra-env/lib -lxml2 -L/home/kevin/Projects/edAstra/edAstra-env/lib -lz -L/home/kevin/Projects/edAstra/edAstra-env/lib -llzma -lpthread -L/home/kevin/Projects/edAstra/edAstra-env/lib -liconv -L/home/kevin/Projects/edAstra/edAstra-env/lib -licui18n -licuuc -licudata -lm -ldl -lm  -lrt
+Cflags: -I${includedir}
